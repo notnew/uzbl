@@ -1,6 +1,3 @@
-// @cbind gn = js page string uzbl.navigation.next()
-// @cbind gp = js page string uzbl.navigation.prev()
-
 uzbl.navigation = (function () {
 'use strict';
 
