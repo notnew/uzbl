@@ -109,7 +109,7 @@ uzbl_io_free ()
 }
 
 typedef gboolean (*UzblIODataCallback)(GIOChannel *gio, GString* line, gpointer data);
-typedef void (*UzblIODataErrorCallback)(GIOChannel *gio, GIOStatus status, gpointer data);
+typedef void (*UzblIODataErrorCallback)(GIOChannel *gio, gpointer data);
 static void
 add_buffered_cmd_source (GIOChannel *gio, const gchar *name, UzblIODataCallback callback,
         UzblIODataErrorCallback error_callback, gpointer data);
@@ -131,7 +131,7 @@ uzbl_io_init_stdin ()
 static gboolean
 control_client_socket (GIOChannel *gio, GString *line, gpointer data);
 static void
-close_client_socket (GIOChannel *gio, GIOStatus status, gpointer data);
+close_client_socket (GIOChannel *gio, gpointer data);
 static void
 replay_event_buffer (GIOChannel *channel);
 
@@ -481,10 +481,8 @@ control_client_socket (GIOChannel *gio, GString *input, gpointer data)
 }
 
 void
-close_client_socket (GIOChannel *gio, GIOStatus status, gpointer data)
+close_client_socket (GIOChannel *gio, gpointer data)
 {
-    UZBL_UNUSED (status);
-
     GError *error = NULL;
     GIOStatus ret = g_io_channel_shutdown (gio, TRUE, &error);
     GPtrArray *socket_array = (GPtrArray *)data;
@@ -702,7 +700,7 @@ line_buffer_io (GIOChannel *gio, GIOCondition condition, gpointer data)
         }
 
         if (io_data->error_callback) {
-            io_data->error_callback(gio, status, io_data->data);
+            io_data->error_callback(gio, io_data->data);
         }
 
         return FALSE;
