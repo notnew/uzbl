@@ -1,13 +1,12 @@
 uzbl.navigation = (function () {
 'use strict';
 
-var select = document.querySelector;
 var trySelectors = function (selectors) {
     var elem;
     var i;
     for (i = 0; i < selectors.length; ++i) {
-        elem = select(selectors[i]);
-        if (elem) {
+        elem = document.querySelector(selectors[i]);
+        if (elem !== null) {
             return elem;
         }
     }
