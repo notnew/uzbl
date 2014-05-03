@@ -26,14 +26,18 @@ return {
     next: function () {
         var anchor = nextAnchor();
         if (typeof anchor !== 'undefined') {
-            anchor.click();
+            return anchor.href;
         }
+
+        return "";
     },
     prev: function () {
         var anchor = prevAnchor();
         if (typeof anchor !== 'undefined') {
-            anchor.click();
+            return anchor.href;
         }
+
+        return "";
     }
 };
 }());
