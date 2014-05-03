@@ -696,8 +696,10 @@ line_buffer_io (GIOChannel *gio, GIOCondition condition, gpointer data)
     GIOStatus status = g_io_channel_read_chars (gio, input, BUFSZ, &read, &error);
 
     if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF) {
-        g_warning ("Error buffering: %s", error->message);
-        g_clear_error (&error);
+        if (error) {
+            g_warning ("Error buffering: %s", error->message);
+            g_clear_error (&error);
+        }
 
         if (io_data->error_callback) {
             io_data->error_callback(gio, status, io_data->data);
