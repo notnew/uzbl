@@ -280,8 +280,8 @@ set ebind     @mode_bind global,-insert
 # Navigation binds
 @cbind  b   = back
 @cbind  m   = forward
-@cbind  gb  = uri \@< encodeURI(uzbl.navigation.prev()); >\@
-@cbind  gf  = uri \@< encodeURI(uzbl.navigation.next()); >\@
+@cbind  gb  = uri \@< encodeURI(uzbl.navigation.prev()) >\@
+@cbind  gf  = uri \@< encodeURI(uzbl.navigation.next()) >\@
 @cbind  S   = stop
 @cbind  r   = reload cached
 @cbind  R   = reload full
