@@ -494,7 +494,7 @@ close_client_socket (GIOChannel *gio, GIOStatus status, gpointer data)
     }
 
     if (ret == G_IO_STATUS_ERROR) {
-        g_warning ("Error closing: %s", error->message);
+        g_warning ("Error shutting down client socket: %s", error->message);
         g_clear_error (&error);
     }
 }
