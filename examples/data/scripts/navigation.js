@@ -24,8 +24,8 @@ var nextAnchor = function () {
 
 var prevAnchor = function () {
     return trySelectors(
-      [ 'a[rel="next"]'
-      , 'link[rel="next"]'
+      [ 'a[rel="prev"]'
+      , 'link[rel="prev"]'
       ]
     );
 };
