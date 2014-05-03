@@ -691,22 +691,22 @@ line_buffer_io (GIOChannel *gio, GIOCondition condition, gpointer data)
     GError *error = NULL;
 
     do {
-    GIOStatus status = g_io_channel_read_chars (gio, input, BUFSZ, &read, &error);
+        GIOStatus status = g_io_channel_read_chars (gio, input, BUFSZ, &read, &error);
 
-    if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF) {
-        if (error) {
-            g_warning ("Error buffering: %s", error->message);
-            g_clear_error (&error);
+        if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF) {
+            if (error) {
+                g_warning ("Error buffering: %s", error->message);
+                g_clear_error (&error);
+            }
+
+            if (io_data->error_callback) {
+                io_data->error_callback(gio, io_data->data);
+            }
+
+            return FALSE;
         }
 
-        if (io_data->error_callback) {
-            io_data->error_callback(gio, io_data->data);
-        }
-
-        return FALSE;
-    }
-
-    g_string_append_len (io_data->buffer, input, read);
+        g_string_append_len (io_data->buffer, input, read);
     } while (read);
 
     gboolean contin = TRUE;
